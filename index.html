@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fur Babies | False Ceilings</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--text:#1a1a2e;--muted:#6b6b7b;--accent:#4A6FA5;--coral:#D85A30;--teal:#1D9E75;--red:#C04040;--serif:'Playfair Display',Georgia,serif;--sans:'Source Sans 3','Segoe UI',sans-serif}
+html,body{height:100%;overflow:hidden;background:#C5D8ED;color:var(--text);font-family:var(--sans)}
+#walk{display:flex;height:100vh;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth}
+#walk::-webkit-scrollbar{height:5px}
+#walk::-webkit-scrollbar-track{background:#ddd}
+#walk::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+.S{position:relative;min-width:75vw;height:100vh;flex-shrink:0;overflow:hidden}
+.sky{position:absolute;inset:0;z-index:0}
+.sky-a{background:linear-gradient(180deg,#B8CEE4 0%,#D0D8CC 50%,#DDD8CE 100%)}
+.sky-b{background:linear-gradient(180deg,#C8BCAE 0%,#D8D0C4 50%,#E0DCD2 100%)}
+.sky-c{background:linear-gradient(180deg,#BBCFB8 0%,#CDD8C4 50%,#DDD8CE 100%)}
+.sky-d{background:linear-gradient(180deg,#CCBFB2 0%,#D8D0C4 50%,#E0DCD2 100%)}
+.sky-e{background:linear-gradient(180deg,#B0C8E0 0%,#C4D8CC 50%,#DDD8CE 100%)}
+.swk{position:absolute;bottom:0;left:0;right:0;height:18vh;background:linear-gradient(180deg,#C0BAB0 0%,#D6D0C6 100%);z-index:5;border-top:4px solid #A8A090}
+.bldg{position:absolute;bottom:18vh;z-index:1;border:2px solid #A09888;border-bottom:none}
+.bi{position:absolute;inset:0;display:flex;flex-wrap:wrap;align-content:flex-start;padding:10px 8px;gap:6px 8px;overflow:hidden}
+.bw{width:24px;height:18px;background:#E4DED4;border:1px solid #B0A898;border-radius:1px;flex-shrink:0}
+.bws{width:18px;height:14px;background:#E4DED4;border:1px solid #B0A898;border-radius:1px;flex-shrink:0}
+.roof{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);width:0;height:0}
+.door{position:absolute;bottom:0;left:50%;transform:translateX(-50%);border-radius:3px 3px 0 0;border:1px solid #6B5535}
+.chim{position:absolute;bottom:100%;background:#A09080}
+.b1{background:#C8BFB0}.b2{background:#D0C8B8}.b3{background:#B8B0A0}.b4{background:#C0BAA8}.b5{background:#BFB8A8}.b6{background:#C4BDB0}.b7{background:#CCC4B4}
+
+/* ONE billboard per scene, centered, responsive width */
+.BB{position:absolute;z-index:8;bottom:calc(18vh + 215px);left:5%;right:5%;max-width:560px;max-height:calc(100vh - 18vh - 230px);overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+.BBb{background:rgba(255,255,255,.95);border:4px solid #A09888;border-radius:14px;padding:clamp(14px,3.5vw,28px) clamp(16px,4vw,32px);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.BBb h2{font-family:var(--serif);font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:700;margin-bottom:6px;line-height:1.15}
+.BBb p{font-family:var(--sans);font-size:clamp(.78rem,2vw,1.1rem);line-height:1.45;color:var(--muted);font-weight:300;margin-bottom:4px}
+.BBb .st{font-family:var(--serif);font-size:clamp(1.8rem,5.5vw,3.8rem);font-weight:700;line-height:1}
+.BBb .sm{font-family:var(--serif);font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;line-height:1}
+.BBb .sl{font-size:clamp(.55rem,1.4vw,.85rem);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-top:2px}
+.cw{position:relative;width:100%;height:clamp(160px,26vw,260px)}
+
+/* Street signs */
+.gs{position:absolute;bottom:calc(18vh + 4px);z-index:6;text-align:center}
+.gsp{width:10px;height:clamp(60px,12vw,120px);background:#777;margin:0 auto;border-radius:2px}
+.gst{font-size:clamp(12px,3vw,22px);font-weight:700;padding:6px 16px;border-radius:5px;font-family:var(--sans);white-space:nowrap}
+.gsg{background:var(--teal);color:white}
+.gsf{background:#C8B830;color:#2a2a2a;opacity:.7}
+
+.tree{position:absolute;bottom:18vh;z-index:4}
+.tc{width:clamp(50px,12vw,90px);height:clamp(50px,12vw,90px);background:#7BAF6E;border-radius:50%;margin-bottom:-14px}
+.tt{width:20px;height:clamp(30px,8vw,60px);background:#8B7355;border-radius:4px;margin:0 auto}
+.fh{position:absolute;bottom:calc(18vh + 6px);z-index:6;width:26px;height:44px;background:var(--red);border-radius:6px 6px 3px 3px}
+.fh::before{content:'';position:absolute;top:10px;left:-6px;width:38px;height:10px;background:var(--red);border-radius:4px}
+.fh::after{content:'';position:absolute;top:-6px;left:5px;width:16px;height:12px;background:var(--red);border-radius:8px 8px 0 0}
+.paw{position:absolute;z-index:6;opacity:.18;font-size:clamp(16px,4vw,28px);color:#6B4522}
+
+/* Walker */
+#walker{position:fixed;bottom:18vh;left:6%;z-index:100;display:flex;align-items:flex-end;gap:10px;transform-origin:bottom left;transform:scale(clamp(.5,0.13vw + 0.3,1))}
+.P{width:36px;height:200px;position:relative}
+.Ph{width:36px;height:36px;background:#D4A574;border-radius:50%;position:absolute;top:0;left:0}
+.Phr{width:36px;height:20px;background:#5C3A1E;border-radius:18px 18px 0 0;position:absolute;top:0;left:0}
+.Pn{width:12px;height:10px;background:#D4A574;position:absolute;top:34px;left:12px}
+.Psh{width:36px;height:18px;background:#4A6FA5;border-radius:10px;position:absolute;top:42px;left:0}
+.Pt{width:28px;height:68px;background:#4A6FA5;border-radius:4px 10px 4px 4px;position:absolute;top:44px;left:4px}
+.Pab{width:12px;height:52px;background:#3A5A8A;border-radius:6px;position:absolute;top:48px;left:0;transform-origin:top center;animation:as .6s ease-in-out infinite alternate-reverse;z-index:-1}
+.Paf{width:12px;height:52px;background:#4A6FA5;border-radius:6px;position:absolute;top:48px;left:22px;transform-origin:top center;animation:as .6s ease-in-out infinite alternate}
+.Phd{width:10px;height:10px;background:#D4A574;border-radius:50%;position:absolute;bottom:-2px;left:1px}
+@keyframes as{0%{transform:rotate(-15deg)}100%{transform:rotate(15deg)}}
+.Php{width:24px;height:12px;background:#3A3A5A;border-radius:4px;position:absolute;top:110px;left:6px}
+.Pl{position:absolute;bottom:0;left:4px;display:flex;gap:6px}
+.Plg{width:12px;height:80px;background:#3A3A5A;border-radius:0 0 5px 5px;transform-origin:top center;position:relative}
+.Psho{width:20px;height:8px;background:#2a2a2a;border-radius:2px 8px 3px 3px;position:absolute;bottom:-2px;left:-3px}
+.lw{animation:lw .55s ease-in-out infinite alternate}
+.lw2{animation:lw .55s ease-in-out infinite alternate-reverse}
+@keyframes lw{0%{transform:rotate(-12deg)}100%{transform:rotate(12deg)}}
+.leash{width:50px;height:2.5px;background:#777;position:absolute;top:96px;right:-48px;transform-origin:left center;transform:rotate(15deg)}
+.D{position:relative;width:140px;height:100px}
+.Db{width:96px;height:54px;background:#8B6542;border-radius:12px 24px 16px 18px;position:absolute;bottom:32px;right:10px}
+.Dc{width:30px;height:36px;background:#A07850;border-radius:0 14px 10px 0;position:absolute;bottom:34px;right:10px}
+.Dhd{width:48px;height:42px;background:#8B6542;border-radius:10px 18px 14px 16px;position:absolute;bottom:50px;right:-18px}
+.De{width:20px;height:28px;background:#6B4522;border-radius:50% 60% 20% 20%;position:absolute;top:-8px;right:8px;transform:rotate(10deg)}
+.Dey{width:7px;height:7px;background:#2a2a2a;border-radius:50%;position:absolute;bottom:20px;right:8px}
+.Des{width:2px;height:2px;background:white;border-radius:50%;position:absolute;bottom:22px;right:10px}
+.Ds{width:24px;height:18px;background:#A07850;border-radius:10px;position:absolute;bottom:2px;right:-14px}
+.Dn{width:12px;height:9px;background:#2a2a2a;border-radius:50%;position:absolute;bottom:10px;right:-16px}
+@keyframes pa2{0%{transform:scaleY(0.7)}100%{transform:scaleY(1.2)}}
+.Dtg{width:9px;height:14px;background:#E07070;border-radius:0 0 6px 6px;position:absolute;bottom:-12px;right:-6px;transform-origin:top center;animation:pa2 .8s ease-in-out infinite alternate}
+.Dtl{width:36px;height:8px;background:#8B6542;border-radius:4px;position:absolute;bottom:74px;left:0px;transform-origin:right center;animation:wg .4s ease-in-out infinite alternate}
+.Dcl{width:14px;height:8px;background:#C04040;border-radius:2px;position:absolute;bottom:56px;right:-2px}
+.Dfl{position:absolute;bottom:0;display:flex;gap:16px;right:16px}
+.Dlg{width:12px;height:34px;background:#7A5532;border-radius:0 0 5px 5px;transform-origin:top center;position:relative}
+.Dpw{width:16px;height:7px;background:#6B4522;border-radius:4px;position:absolute;bottom:-2px;left:-2px}
+.Dbl{position:absolute;bottom:0;display:flex;gap:16px;right:56px;z-index:-1}
+.Dblg{width:12px;height:34px;background:#6B4522;border-radius:0 0 5px 5px;transform-origin:top center;position:relative}
+.dw{animation:dw .35s ease-in-out infinite alternate}
+.dw2{animation:dw .35s ease-in-out infinite alternate-reverse}
+@keyframes wg{0%{transform:rotate(-25deg)}100%{transform:rotate(30deg)}}
+@keyframes dw{0%{transform:rotate(-14deg)}100%{transform:rotate(14deg)}}
+.fade-in{opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:300;width:0;transition:width .1s linear}
+#cue{position:fixed;bottom:calc(18vh + 10px);left:0;right:0;z-index:200;display:flex;justify-content:center;pointer-events:none;transition:opacity .5s ease}
+#cue-inner{background:rgba(74,111,165,.9);color:white;font-family:var(--sans);padding:12px 28px;border-radius:40px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,.15);animation:pulse 2s ease-in-out infinite}
+#cue-arrow{font-size:1.1rem;animation:nu 1.5s ease-in-out infinite;letter-spacing:-4px}
+#cue-text{font-size:clamp(.8rem,2.2vw,1rem);font-weight:500;letter-spacing:.03em}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes nu{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="walker">
+<div class="P"><div class="Phr"></div><div class="Ph"></div><div class="Pn"></div><div class="Psh"></div><div class="Pt"></div><div class="Pab"><div class="Phd"></div></div><div class="Paf"><div class="Phd"></div></div><div class="Php"></div><div class="Pl"><div class="Plg lw"><div class="Psho"></div></div><div class="Plg lw2"><div class="Psho"></div></div></div><div class="leash"></div></div>
+<div class="D"><div class="Dtl"></div><div class="Db"></div><div class="Dc"></div><div class="Dcl"></div><div class="Dhd"><div class="De"></div><div class="Dey"></div><div class="Des"></div><div class="Ds"></div><div class="Dn"></div><div class="Dtg"></div></div><div class="Dbl"><div class="Dblg dw"><div class="Dpw"></div></div><div class="Dblg dw2"><div class="Dpw"></div></div></div><div class="Dfl"><div class="Dlg dw2"><div class="Dpw"></div></div><div class="Dlg dw"><div class="Dpw"></div></div></div></div>
+</div>
+<div id="walk">
+
+<!-- 1 TITLE -->
+<div class="S"><div class="sky sky-a"></div>
+<div class="bldg b2" style="left:50%;width:180px;height:calc(82vh)"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="bldg b4" style="left:72%;width:150px;height:60vh"><div class="roof" style="border-left:82px solid transparent;border-right:82px solid transparent;border-bottom:55px solid #A89888"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b1" style="width:28px;height:46px"></div><div class="chim" style="width:18px;height:30px;top:-30px;right:20px"></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><div style="font-size:clamp(.7rem,1.8vw,.9rem);text-transform:uppercase;letter-spacing:.3em;color:var(--accent);font-weight:600;margin-bottom:8px"><a href="https://falseceilings.substack.com" target="_blank" style="color:var(--accent);text-decoration:none">False Ceilings</a></div><h2 style="font-size:clamp(2rem,6vw,3.4rem)">Fur Babies</h2><p style="font-family:var(--serif);font-size:clamp(.9rem,2.5vw,1.2rem);font-style:italic;color:var(--muted)">The floor plan adapted. The operating model didn't.</p><p style="margin-top:10px;font-size:clamp(.7rem,1.8vw,.9rem)">Rich Hughes &middot; April 2026</p></div></div>
+<div class="tree" style="right:12%"><div class="tc"></div><div class="tt"></div></div>
+</div>
+
+<!-- 2 OPENING -->
+<div class="S"><div class="sky sky-a"></div>
+<div class="bldg b3" style="left:48%;width:200px;height:82vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="bldg b5" style="left:70%;width:140px;height:55vh"><div class="roof" style="border-left:76px solid transparent;border-right:76px solid transparent;border-bottom:50px solid #B0A090"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b1" style="width:26px;height:44px"></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><p style="font-size:clamp(.95rem,2.5vw,1.15rem);color:var(--text);font-weight:400;line-height:1.55">The most important resident in your apartment community weighs sixty pounds, has four legs, and never signed the lease.</p><p>There is an assumption running through multifamily real estate that almost nobody questions: the dominant renter household includes, or will soon include, children.</p></div></div>
+<div class="gs" style="right:16%"><div class="gst gsf">SCHOOL ZONE</div><div class="gsp"></div></div>
+</div>
+
+<!-- 3 DECLINE -->
+<div class="S"><div class="sky sky-b"></div>
+<div class="bldg b1" style="left:55%;width:170px;height:62vh"><div class="roof" style="border-left:92px solid transparent;border-right:92px solid transparent;border-bottom:58px solid #A89888"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b4" style="width:28px;height:48px"></div><div class="chim" style="width:18px;height:30px;top:-30px;right:22px"></div></div>
+<div class="bldg b3" style="left:78%;width:130px;height:82vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><h2 style="color:var(--red)">Why fewer babies</h2><div style="display:flex;gap:clamp(10px,3vw,20px);margin:.5rem 0;flex-wrap:wrap"><div><div class="st" style="color:var(--red)">1.6</div><div class="sl">Births per woman, 2024</div></div><div><div class="st" style="color:var(--red)">11.8M</div><div class="sl">Fewer births since 2007</div></div></div><p>CBO projects 1.53 by 2035. Median marriage age: men 30.2, women 28.6. Cost per child: $310K+. A generation primed for a studio apartment and a rescue dog.</p></div></div>
+<div class="fh" style="right:50%"></div>
+</div>
+
+<!-- 4 CHART: divergence -->
+<div class="S"><div class="sky sky-b"></div>
+<div class="bldg b5" style="left:55%;width:130px;height:50vh"><div class="roof" style="border-left:72px solid transparent;border-right:72px solid transparent;border-bottom:48px solid #9A8A78"></div><div class="bi"><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div></div><div class="door b2" style="width:24px;height:40px"></div></div>
+<div class="bldg b7" style="left:76%;width:150px;height:72vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><div style="font-size:clamp(.7rem,1.8vw,.9rem);color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Fertility rate vs. pet ownership</div><p style="margin-bottom:8px">Two lines. One story. As birth rates fell, pet ownership rose.</p><div class="cw"><canvas id="c1"></canvas></div><div style="display:flex;gap:14px;margin-top:6px;font-size:clamp(.6rem,1.6vw,.8rem);color:var(--muted)"><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#C04040"></span>Fertility</span><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#1D9E75"></span>Pet %</span></div><div style="margin-top:6px;font-size:clamp(.5rem,1.3vw,.65rem);color:var(--muted);font-style:italic">Source: CDC/NCHS, APPA National Pet Owners Survey</div></div></div>
+<div class="tree" style="right:8%"><div class="tc" style="background:#6B9F5E"></div><div class="tt"></div></div>
+</div>
+
+<!-- 5 PETS -->
+<div class="S"><div class="sky sky-c"></div>
+<div class="bldg b4" style="left:52%;width:140px;height:58vh"><div class="roof" style="border-left:76px solid transparent;border-right:76px solid transparent;border-bottom:50px solid #B0A090"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b1" style="width:26px;height:44px"></div></div>
+<div class="bldg b2" style="left:72%;width:160px;height:78vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><h2 style="color:var(--teal)">Why pets</h2><div style="display:flex;gap:clamp(10px,3vw,20px);margin:.5rem 0;flex-wrap:wrap"><div><div class="st" style="color:var(--teal)">94M</div><div class="sl">Pet-owning households</div></div><div><div class="st" style="color:var(--teal)">+43.5%</div><div class="sl">Gen Z growth '23-'24</div></div></div><p>72% of childless millennial women prefer their pet's company. 53% chose housing based on pet outdoor space.</p><p style="margin-top:4px">57% of renters say a pet policy is essential. 60% cite it for renewal.</p><p style="margin-top:6px;font-family:var(--serif);font-style:italic;color:var(--text)">They call themselves parents.</p></div></div>
+<div class="gs" style="right:14%"><div class="gst gsg">DOG PARK &rarr;</div><div class="gsp"></div></div>
+</div>
+
+<!-- 6 CHART: renters -->
+<div class="S"><div class="sky sky-c"></div>
+<div class="bldg b6" style="left:55%;width:180px;height:70vh"><div class="roof" style="border-left:96px solid transparent;border-right:96px solid transparent;border-bottom:58px solid #A89888"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b3" style="width:28px;height:48px"></div></div>
+<div class="bldg b3" style="left:80%;width:130px;height:55vh"><div class="bi"><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><div style="font-size:clamp(.7rem,1.8vw,.9rem);color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Renters with pets</div><div class="cw"><canvas id="c2"></canvas></div><div style="display:flex;gap:14px;margin-top:6px;font-size:clamp(.6rem,1.6vw,.8rem);color:var(--muted)"><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#378ADD"></span>With pets</span><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:rgba(55,138,221,.15);border:1px solid #378ADD"></span>Without</span></div><div style="margin-top:6px;font-size:clamp(.5rem,1.3vw,.65rem);color:var(--muted);font-style:italic">Source: Zillow Consumer Housing Trends Report</div></div></div>
+</div>
+
+<!-- 7 THE FLOOR PLAN CAUGHT UP -->
+<div class="S"><div class="sky sky-a"></div>
+<div class="bldg b3" style="left:54%;width:190px;height:82vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="bldg b5" style="left:77%;width:130px;height:55vh"><div class="roof" style="border-left:72px solid transparent;border-right:72px solid transparent;border-bottom:48px solid #9A8A78"></div><div class="bi"><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div></div><div class="door b2" style="width:24px;height:40px"></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><div style="font-size:clamp(.7rem,1.8vw,.9rem);color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">The floor plan caught up</div><p style="margin-bottom:8px">The unit mix already shifted. One-beds rose. Three-beds collapsed. But the operating model around them hasn't moved.</p><div class="cw"><canvas id="c4"></canvas></div><div style="display:flex;gap:14px;margin-top:6px;font-size:clamp(.6rem,1.6vw,.8rem);color:var(--muted)"><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#4A6FA5"></span>1-bed</span><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#D85A30"></span>2-bed</span><span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#1D9E75"></span>3-bed</span></div><div style="margin-top:6px;font-size:clamp(.5rem,1.3vw,.65rem);color:var(--muted);font-style:italic">Source: ALN Apartment Data; RentCafe/Yardi Matrix 2025</div></div></div>
+</div>
+
+<!-- 8 STRANDED -->
+<div class="S"><div class="sky sky-d"></div>
+<div class="bldg b1" style="left:55%;width:160px;height:78vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="bldg b6" style="left:76%;width:150px;height:65vh"><div class="roof" style="border-left:82px solid transparent;border-right:82px solid transparent;border-bottom:55px solid #B0A090"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b1" style="width:26px;height:44px"></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><h2 style="color:var(--coral)">The stranded asset</h2><div style="display:flex;gap:clamp(12px,3vw,20px);margin:.4rem 0;flex-wrap:wrap"><div><div class="sm" style="color:var(--coral)">21%</div><div class="sl">Longer tenure,<br>pet-inclusive</div></div><div><div class="sm" style="color:var(--coral)">80%</div><div class="sl">Still enforce<br>breed restrictions</div></div></div><p>The unit got smaller. The policies, amenities, and site selection didn't. The dog park is infrastructure. The playground is the amenity now.</p></div></div>
+<div class="gs" style="right:5%"><div class="gst" style="background:#aaa;color:#ddd;opacity:.5">PLAYGROUND</div><div class="gsp"></div></div>
+</div>
+
+<!-- 9 CHART: mismatch -->
+<div class="S"><div class="sky sky-d"></div>
+<div class="bldg b4" style="left:58%;width:120px;height:50vh"><div class="roof" style="border-left:66px solid transparent;border-right:66px solid transparent;border-bottom:45px solid #9A8A78"></div><div class="bi"><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div></div><div class="door b2" style="width:24px;height:40px"></div></div>
+<div class="bldg b3" style="left:78%;width:140px;height:74vh"><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><div style="font-size:clamp(.7rem,1.8vw,.9rem);color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">The acceptance gap</div><p style="margin-bottom:12px">Properties say they're pet-friendly. Renters disagree. Here's why.</p><div style="position:relative;width:100%;height:clamp(200px,34vw,340px)"><canvas id="c3"></canvas></div><div style="margin-top:10px;font-size:clamp(.55rem,1.4vw,.72rem);color:var(--muted);font-style:italic;line-height:1.4">Renter data: Zillow Consumer Housing Trends Report 2024. Property data: PIHI 2025 Outlook. Amenity data: PetScreening/NAA State of Pets in Rental Housing 2025.</div></div></div>
+<div class="tree" style="right:5%"><div class="tc" style="background:#5CA050"></div><div class="tt"></div></div>
+</div>
+
+<!-- 10 CLOSE -->
+<div class="S"><div class="sky sky-e"></div>
+<div class="bldg b2" style="left:55%;width:160px;height:60vh"><div class="roof" style="border-left:86px solid transparent;border-right:86px solid transparent;border-bottom:55px solid #A89888"></div><div class="bi"><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div><div class="bw"></div></div><div class="door b1" style="width:28px;height:46px"></div></div>
+<div class="bldg b4" style="left:78%;width:120px;height:45vh"><div class="roof" style="border-left:66px solid transparent;border-right:66px solid transparent;border-bottom:45px solid #9A8A78"></div><div class="bi"><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div><div class="bws"></div></div><div class="door b3" style="width:24px;height:38px"></div></div>
+<div class="swk"></div>
+<div class="BB fade-in"><div class="BBb"><h2>The household that never formed</h2><p style="font-size:clamp(.9rem,2.2vw,1.1rem)">94 million households own a pet. The fertility rate is 1.6 and falling. These are not competing trends. They are the same trend: a fundamental recomposition of the American household that the apartment industry has noticed in its marketing materials but not yet absorbed into its capital allocation, site selection, unit design, or operating model.</p><div style="font-family:var(--serif);font-size:clamp(1.1rem,3vw,1.5rem);color:var(--text);font-weight:700;line-height:1.3;margin-top:10px">The apartment was designed for a family.<br>The family is not coming.<br>The fur baby is already here.</div><p style="font-size:clamp(.5rem,1.3vw,.68rem);color:var(--muted);font-style:italic;margin-top:10px;line-height:1.4">This thesis is strongest in urban core and Class A product where the renter base skews younger and childless. Pet ownership is rising across every demographic; the question is how fast it reaches your submarket.</p><p style="font-size:clamp(.6rem,1.5vw,.78rem);color:var(--muted);font-style:italic;margin-top:8px">AI used unapologetically. &middot; <a href="https://falseceilings.substack.com" target="_blank" style="color:var(--muted);text-decoration:underline">falseceilings.substack.com</a></p></div></div>
+<div class="gs" style="right:18%"><div class="gst gsg">DOG PARK</div><div class="gsp"></div></div>
+<div class="tree" style="right:8%"><div class="tc" style="width:100px;height:100px;background:#6BAF5E"></div><div class="tt" style="height:65px"></div></div>
+</div>
+
+</div>
+<div id="cue"><div id="cue-inner"><div id="cue-text">Scroll or swipe to walk the dog</div><div id="cue-arrow">&rarr;</div></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+var w=document.getElementById('walk'),pr=document.getElementById('progress'),cu=document.getElementById('cue');
+w.addEventListener('scroll',function(){var s=w.scrollLeft,m=w.scrollWidth-w.clientWidth,p=m>0?(s/m)*100:0;pr.style.width=p+'%';cu.style.opacity=p>5?'0':'0.7';document.querySelectorAll('.fade-in').forEach(function(e){var r=e.getBoundingClientRect();if(r.left<window.innerWidth*.9&&r.right>0)e.classList.add('visible')})});
+w.addEventListener('wheel',function(e){if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();w.scrollLeft+=e.deltaY*6}},{passive:false});
+setTimeout(function(){document.querySelectorAll('.fade-in').forEach(function(e){var r=e.getBoundingClientRect();if(r.left<window.innerWidth*.9)e.classList.add('visible')})},300);
+var g='rgba(0,0,0,0.06)',t='rgba(0,0,0,0.45)';
+new Chart(document.getElementById('c1'),{type:'line',data:{labels:['1988','1996','2004','2007','2012','2016','2020','2024'],datasets:[{data:[1.93,2.03,2.05,2.12,1.88,1.82,1.64,1.60],borderColor:'#C04040',backgroundColor:'rgba(192,64,64,.08)',fill:true,tension:.3,pointRadius:3,pointBackgroundColor:'#C04040',borderWidth:2,yAxisID:'y'},{data:[56,59,63,63,62,68,67,71],borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,.08)',fill:true,tension:.3,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:2,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:t,font:{size:10},maxRotation:45}},y:{position:'left',min:1.4,max:2.3,grid:{color:g},ticks:{color:'#C04040',font:{size:10},callback:function(v){return v.toFixed(1)}}},y1:{position:'right',min:50,max:80,grid:{drawOnChartArea:false},ticks:{color:'#1D9E75',font:{size:10},callback:function(v){return v+'%'}}}}}});
+new Chart(document.getElementById('c2'),{type:'bar',data:{labels:['2019','2023'],datasets:[{data:[46,59],backgroundColor:'#378ADD',borderRadius:4,barPercentage:.5},{data:[54,41],backgroundColor:'rgba(55,138,221,.12)',borderRadius:4,barPercentage:.5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:t,font:{size:11,weight:'500'}}},y:{stacked:true,max:100,grid:{color:g},ticks:{color:t,font:{size:10},callback:function(v){return v+'%'}}}}}});
+new Chart(document.getElementById('c3'),{type:'bar',data:{labels:['Renters with pets','Say pet policy\nis essential','Walk away if\npets banned','Avoid breed/size\nrestrictions','','Properties\nallow pets','Enforce breed\nrestrictions','Impose weight\nlimits','Truly inclusive\n(no restrictions)','','Have dog park','Have pet\ngrooming/spa'],datasets:[{data:[59,57,44,32,null,80,80,64,8,null,35,15],backgroundColor:function(ctx){var i=ctx.dataIndex;if(i<=3)return '#D85A30';if(i>=5&&i<=7)return '#7F77DD';if(i===8)return '#1D9E75';if(i>=10)return '#4A6FA5';return 'transparent'},borderRadius:3,barPercentage:.7,categoryPercentage:.85}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{filter:function(t){return t.raw!==null},callbacks:{label:function(ctx){var g=ctx.dataIndex<=3?'Renters':ctx.dataIndex<=8?'Properties':'Amenities';return g+': '+ctx.raw+'%'}}}},scales:{x:{max:100,grid:{color:g},ticks:{color:t,font:{size:9},callback:function(v){return v+'%'}}},y:{grid:{display:false},ticks:{color:function(ctx){if(ctx.index===4||ctx.index===9)return 'transparent';return t.replace('0.45','0.55')},font:function(ctx){if(ctx.index===4||ctx.index===9)return{size:6};return{size:9}},autoSkip:false}}}}});
+new Chart(document.getElementById('c4'),{type:'line',data:{labels:['2000s','2010s','2024'],datasets:[{label:'1-bed',data:[37,45,48],borderColor:'#4A6FA5',backgroundColor:'rgba(74,111,165,.08)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#4A6FA5',borderWidth:2.5},{label:'2-bed',data:[46,39,39],borderColor:'#D85A30',backgroundColor:'rgba(216,90,48,.08)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#D85A30',borderWidth:2.5},{label:'3-bed',data:[13,9,6.5],borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,.08)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#1D9E75',borderWidth:2.5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+': '+ctx.raw+'%'}}}},scales:{x:{grid:{display:false},ticks:{color:t,font:{size:11,weight:'600'}}},y:{min:0,max:55,grid:{color:g},ticks:{color:t,font:{size:10},callback:function(v){return v+'%'}}}}}});
+</script>
+</body>
+</html>
